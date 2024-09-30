@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { CardDescription, CardTitle } from '@/components/ui/card';
 import { CLIENTS, USERS } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 import { randomUUID } from 'crypto';
 import Image from 'next/image';
 
@@ -16,7 +17,7 @@ export default function Page() {
           title="All-in-One Collaboration and
 Productivity Platform"
         />
-        <div className="from-primary-purple-500 to-primary-blue-500 mt-6 rounded-xl bg-white bg-gradient-to-r p-[2px] sm:w-[200px]">
+        <div className="mt-6 rounded-xl bg-white bg-gradient-to-r from-primary-purple-500 to-primary-blue-500 p-[2px] sm:w-[200px]">
           <Button
             variant={'secondary'}
             className="w-full rounded-[10px] bg-background p-6 text-xl sm:p-2 sm:text-base"
@@ -36,7 +37,7 @@ Productivity Platform"
         </div>
       </section>
       <section className="relative">
-        <div className="after:content[''] after:dark:from-dark before:content[''] before:dark:from-dark flex overflow-hidden before:absolute before:bottom-0 before:left-0 before:top-0 before:z-10 before:w-20 before:bg-gradient-to-r before:from-background before:to-transparent after:absolute after:bottom-0 after:right-0 after:top-0 after:z-10 after:w-20 after:bg-gradient-to-l after:from-background after:to-transparent">
+        <div className="after:content[''] before:content[''] flex overflow-hidden before:absolute before:bottom-0 before:left-0 before:top-0 before:z-10 before:w-20 before:bg-gradient-to-r before:from-background before:to-transparent after:absolute after:bottom-0 after:right-0 after:top-0 after:z-10 after:w-20 after:bg-gradient-to-l after:from-background after:to-transparent before:dark:from-dark after:dark:from-dark">
           {[...Array(2)].map((arr) => (
             <div key={arr} className="animate-slide flex flex-nowrap">
               {CLIENTS.map((client) => (
@@ -57,7 +58,7 @@ Productivity Platform"
         </div>
       </section>
       <section className="relative mt-16 flex flex-col items-center justify-center px-4 sm:px-6">
-        <div className="bg-primary-purple-500/50 top-22 absolute -z-10 h-32 w-[30%] rounded-full blur-[120px]" />
+        <div className="top-22 absolute -z-10 h-32 w-[30%] rounded-full bg-primary-purple-500/50 blur-[120px]" />
         <SectionHeading
           title="Keep track of your meetings
 all in one place"
@@ -65,7 +66,7 @@ all in one place"
           subheading="Capture your ideas, thoughts, and meeting notes in a
 structured and organized manner."
         />
-        <div className="border-secondary-purple-300/10 relative mt-10 flex aspect-[1.0422535211] w-full max-w-[450px] items-center justify-center overflow-hidden rounded-2xl border-8 sm:ml-0">
+        <div className="relative mt-10 flex aspect-[1.0422535211] w-full max-w-[450px] items-center justify-center overflow-hidden rounded-2xl border-8 border-secondary-purple-300/10 sm:ml-0">
           <Image
             src="/images/calendar.png"
             alt="Banner"
@@ -75,7 +76,7 @@ structured and organized manner."
         </div>
       </section>
       <section className="relative">
-        <div className="bg-primary-purple-500/50 absolute top-56 -z-10 h-32 w-full rounded-full blur-[120px]" />
+        <div className="absolute top-56 -z-10 h-32 w-full rounded-full bg-primary-purple-500/50 blur-[120px]" />
         <div className="mt-16 flex flex-col items-center justify-center overflow-visible overflow-x-hidden px-4 sm:px-6">
           <SectionHeading
             title="Trusted by all"
@@ -84,73 +85,62 @@ structured and organized manner."
 personal and professional productivity needs."
           />
 
-          <div
+          {[...Array(2)].map((_, arraryIndex) => (
+            <div
+              key={randomUUID()}
+              className={cn(
+                'mt-10 flex flex-nowrap gap-6 self-start hover:paused',
+                {
+                  'flex-row-reverse': arraryIndex === 1,
+                  'animate-[slide_400s_linear_infinite]': true,
+                  'animate-[slide_400s_linear_infinite_reverse]':
+                    arraryIndex === 1,
+                  'ml-[100vw]': arraryIndex === 1,
+                },
+              )}
+            >
+              {(arraryIndex === 0 ? USERS : [...USERS].reverse()).map(
+                (testimonial, index) => (
+                  <CustomCard
+                    key={testimonial.name}
+                    className="w-[500px] shrink-0 rounded-xl to-background dark:bg-gradient-to-t dark:from-border"
+                    cardHeader={
+                      <div className="flex items-center gap-4">
+                        <Avatar>
+                          <AvatarImage
+                            src={
+                              arraryIndex === 0
+                                ? `/images/avatars/${index + 1}.png`
+                                : `/images/avatars/${USERS.length - index}.png`
+                            }
+                          />
+                          <AvatarFallback></AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <CardTitle className="text-foreground">
+                            {testimonial.name}
+                          </CardTitle>
+                          <CardDescription className="dark:text-secondary-purple-800">
+                            @{testimonial.name.toLowerCase()}
+                          </CardDescription>
+                        </div>
+                      </div>
+                    }
+                    cardContent={
+                      <p className="dark:text-secondary-purple-800">
+                        {testimonial.message}
+                      </p>
+                    }
+                  ></CustomCard>
+                ),
+              )}
+            </div>
+          ))}
+
+          {/* <div
             key={randomUUID()}
             className="mt-10 flex animate-[slide_250s_linear_infinite] flex-nowrap gap-6 self-start hover:paused"
-          >
-            {[...USERS].slice(0, 10).map((testimonial, index) => (
-              <CustomCard
-                key={testimonial.name}
-                className="w-[500px] shrink-0 rounded-xl to-background dark:bg-gradient-to-t dark:from-border"
-                cardHeader={
-                  <div className="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarImage src={`/images/avatars/${index + 1}.png`} />
-                      <AvatarFallback></AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-foreground">
-                        {testimonial.name}
-                      </CardTitle>
-                      <CardDescription className="dark:text-secondary-purple-800">
-                        @{testimonial.name.toLowerCase()}
-                      </CardDescription>
-                    </div>
-                  </div>
-                }
-                cardContent={
-                  <p className="dark:text-secondary-purple-800">
-                    {testimonial.message}
-                  </p>
-                }
-              ></CustomCard>
-            ))}
-          </div>
-
-          <div
-            key={randomUUID()}
-            className="ml-[100vw] mt-10 flex animate-[slide_250s_linear_infinite_reverse] flex-row-reverse flex-nowrap gap-6 self-start hover:paused"
-          >
-            {[...USERS].slice(10).map((testimonial, index) => (
-              <CustomCard
-                key={testimonial.name}
-                className="w-[500px] shrink-0 rounded-xl to-background dark:bg-gradient-to-t dark:from-border"
-                cardHeader={
-                  <div className="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarImage
-                        src={`/images/avatars/${index + 10 + 1}.png`}
-                      />
-                      <AvatarFallback></AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-foreground">
-                        {testimonial.name}
-                      </CardTitle>
-                      <CardDescription className="dark:text-secondary-purple-800">
-                        @{testimonial.name.toLowerCase()}
-                      </CardDescription>
-                    </div>
-                  </div>
-                }
-                cardContent={
-                  <p className="dark:text-secondary-purple-800">
-                    {testimonial.message}
-                  </p>
-                }
-              ></CustomCard>
-            ))}
-          </div>
+          ></div> */}
         </div>
       </section>
     </>
