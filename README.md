@@ -8,7 +8,7 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **Backend as Service**: [Supabase](https://supabase.com/)
+- **Database & Authentication**: [Supabase](https://supabase.com/)
 - **Payments infrastructure**: [Stripe](https://stripe.com/)
 
 ## Reference

@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary-purple-500 text-primary-purple-500-foreground hover:bg-primary-purple-500/90',
+          ' whitespace-nowrap bg-primary-purple-500 text-lg text-primary-purple-500-foreground shadow-2xl shadow-primary-purple-600/50 border hover:border-foreground rounded-lg',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         outline:
@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary-purple-500 underline-offset-4 hover:underline',
         'btn-primary':
-          ' whitespace-nowrap hover:text-primary-purple-500-foreground dark:bg-gradient-to-b dark:from-[#030014] dark:to-[#282637] dark:text-primary-purple-500-foreground border hover:border-primary-purple-500 dark:border-[#464553] dark:hover:bg-accent hover:bg-primary-purple-500 dark:hover:border-muted-foreground text-lg font-normal',
+          'whitespace-nowrap hover:text-primary-purple-500-foreground dark:bg-gradient-to-b dark:from-[#030014] dark:to-[#282637] dark:text-primary-purple-500-foreground border hover:border-primary-purple-500 dark:border-[#464553] dark:hover:bg-accent hover:bg-primary-purple-500 dark:hover:border-muted-foreground text-lg font-normal',
         'btn-secondary':
           'whitespace-nowrap dark:text-primary-purple-500-foreground text-lg font-normal',
       },
