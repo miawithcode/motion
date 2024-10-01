@@ -2,8 +2,8 @@ import CustomCard from '@/components/landing-page/custom-card';
 import SectionHeading from '@/components/landing-page/section-heading';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { CardDescription, CardTitle } from '@/components/ui/card';
-import { CLIENTS, USERS } from '@/lib/constants';
+import { CardContent, CardDescription, CardTitle } from '@/components/ui/card';
+import { CLIENTS, PRICING_CARDS, PRICING_PLANS, USERS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { randomUUID } from 'crypto';
 import Image from 'next/image';
@@ -20,7 +20,7 @@ Productivity Platform"
         <div className="mt-6 rounded-xl bg-white bg-gradient-to-r from-primary-purple-500 to-primary-blue-500 p-[2px] sm:w-[200px]">
           <Button
             variant={'secondary'}
-            className="w-full rounded-[10px] bg-background p-6 text-xl sm:p-2 sm:text-base"
+            className="w-full rounded-[10px] bg-background p-6 text-xl text-foreground sm:p-2 sm:text-base"
           >
             Get Motion Free
           </Button>
@@ -141,6 +141,78 @@ personal and professional productivity needs."
             key={randomUUID()}
             className="mt-10 flex animate-[slide_250s_linear_infinite] flex-nowrap gap-6 self-start hover:paused"
           ></div> */}
+        </div>
+      </section>
+      <section className="mt-16 flex flex-col items-center justify-center px-4 sm:px-6">
+        <SectionHeading
+          title="The Perfect Plan For You"
+          pill="Pricing"
+          subheading="Experience all the benefits of our platform. Select a plan that suits your needs and take your productivity to new heights."
+        />
+        <div className="mt-10 flex flex-col-reverse items-center justify-center gap-4 sm:flex-row sm:items-stretch">
+          {PRICING_CARDS.map((card) => (
+            <CustomCard
+              key={card.planType}
+              className={cn('relative w-[300px] rounded-2xl dark:bg-black/40', {
+                'border-primary-purple-500/70':
+                  card.planType === PRICING_PLANS.proplan,
+              })}
+              cardHeader={
+                <CardTitle className="text-2xl font-semibold">
+                  {card.planType === PRICING_PLANS.proplan && (
+                    <>
+                      <div className="absolute top-0 -z-10 hidden h-32 w-full rounded-full bg-primary-purple-500/80 blur-[120px] dark:block" />
+                      <Image
+                        src="/icons/diamond.svg"
+                        width={24}
+                        height={24}
+                        alt="Pro plan icon"
+                        className="absolute right-6 top-6"
+                      />
+                    </>
+                  )}
+                  {card.planType}
+                </CardTitle>
+              }
+              cardContent={
+                <CardContent className="p-0">
+                  <span className="text-2xl font-semibold">${card.price}</span>
+                  {+card.price > 0 && (
+                    <span className="ml-1 dark:text-secondary-purple-800">
+                      /mo
+                    </span>
+                  )}
+                  <p className="dark:text-secondary-purple-800">
+                    {card.description}
+                  </p>
+                  <Button
+                    variant={'btn-primary'}
+                    className="mt-4 w-full whitespace-nowrap capitalize"
+                  >
+                    {card.planType === PRICING_PLANS.proplan
+                      ? 'Go Pro'
+                      : 'Get Started'}
+                  </Button>
+                </CardContent>
+              }
+              cardFooter={
+                <ul className="mb-2 flex flex-col gap-4 font-normal">
+                  <small>{card.highlightFeature}</small>
+                  {card.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2">
+                      <Image
+                        src="/icons/check.svg"
+                        alt="Check icon"
+                        width={16}
+                        height={16}
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              }
+            />
+          ))}
         </div>
       </section>
     </>
