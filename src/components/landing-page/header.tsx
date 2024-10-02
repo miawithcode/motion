@@ -175,11 +175,7 @@ export default function Header() {
       </NavigationMenu>
 
       <aside className="flex w-full justify-end gap-4">
-        <Button
-          variant={'btn-secondary'}
-          className="hidden items-center p-1 sm:flex"
-          asChild
-        >
+        <Button variant={'btn-secondary'} className="items-center p-1" asChild>
           <Link href={'/login'}>Login</Link>
         </Button>
         <Button asChild variant={'btn-primary'} className="whitespace-nowrap">

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
-import { LoginFormSchema } from '@/lib/validations/auth';
+import { LoginFormSchema, SignUpFormSchema } from '@/lib/validations/auth';
 
 export async function login(formData: unknown) {
   const supabase = createClient();
@@ -30,7 +30,7 @@ export async function login(formData: unknown) {
 export async function signup(formData: unknown) {
   const supabase = createClient();
 
-  const validatedFormData = LoginFormSchema.safeParse(formData);
+  const validatedFormData = SignUpFormSchema.safeParse(formData);
 
   if (!validatedFormData.success) {
     return {
@@ -38,8 +38,22 @@ export async function signup(formData: unknown) {
     };
   }
 
+  const { data } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('email', validatedFormData.data.email);
+
+  if (data?.length) return { message: 'User already exists.' };
+
   try {
-    await supabase.auth.signUp(validatedFormData.data);
+    const response = await supabase.auth.signUp({
+      ...validatedFormData.data,
+      // TODO: change this link
+      options: {
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
+      },
+    });
+    return response.error;
   } catch (error) {
     console.log(error);
     return {

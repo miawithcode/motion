@@ -22,7 +22,7 @@ import { login } from '@/lib/actions/auth';
 
 export default function Page() {
   const router = useRouter();
-  const [submitError, setSubmitError] = useState('');
+  const [submitError, setSubmitError] = useState<string>('');
 
   const form = useForm<LoginFormFields>({
     mode: 'onChange',
@@ -106,11 +106,17 @@ export default function Page() {
         {submitError && <FormMessage>{submitError}</FormMessage>}
         <Button
           type="submit"
-          className="w-full p-6"
+          className="w-full gap-x-2 p-6"
           size={'lg'}
           disabled={isSubmitting}
         >
-          {!isSubmitting ? 'Sign In' : <Loader />}
+          {!isSubmitting ? (
+            'Sign In'
+          ) : (
+            <>
+              <Loader /> Sign up
+            </>
+          )}
         </Button>
         <span className="self-center">
           Don&apos;t have an account?{' '}
