@@ -114,7 +114,7 @@ export default function Page() {
             'Sign In'
           ) : (
             <>
-              <Loader /> Sign up
+              <Loader /> Sign in
             </>
           )}
         </Button>

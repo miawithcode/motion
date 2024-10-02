@@ -46,18 +46,24 @@ export async function signup(formData: unknown) {
   if (data?.length) return { message: 'User already exists.' };
 
   try {
-    const response = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       ...validatedFormData.data,
       // TODO: change this link
       options: {
         emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
       },
     });
-    return response.error;
+
+    if (error) {
+      console.log(error);
+      return {
+        message: 'Failed to sign up, please try again.',
+      };
+    }
   } catch (error) {
     console.log(error);
     return {
-      message: 'Failed to sign up, please try again.',
+      message: 'Something went wrong, please try again.',
     };
   }
 
