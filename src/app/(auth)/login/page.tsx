@@ -66,10 +66,10 @@ export default function Page() {
           <Image
             src="/icons/logo.svg"
             alt="Motion logo"
-            width={50}
-            height={50}
+            width={32}
+            height={32}
           />
-          <span className="text-4xl font-semibold first-letter:ml-2 dark:text-white">
+          <span className="text-xl font-semibold first-letter:ml-2 dark:text-white">
             motion.
           </span>
         </Link>
